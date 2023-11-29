@@ -7,6 +7,7 @@ tags: formatting jupyter
 categories: sample-posts
 giscus_comments: true
 related_posts: false
+sitemap: false
 hidden: true
 ---
 

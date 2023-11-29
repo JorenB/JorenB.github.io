@@ -8,6 +8,7 @@ categories: sample-posts
 giscus_comments: true
 related_posts: false
 hidden: true
+sitemap: false
 toc:
   beginning: true
 ---

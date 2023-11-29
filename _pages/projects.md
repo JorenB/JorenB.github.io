@@ -4,6 +4,7 @@ title: projects
 permalink: /projects/
 description: projects desc
 nav: false
+sitemap: false
 nav_order: 2
 display_categories: [work, fun]
 horizontal: false

@@ -6,6 +6,7 @@ description: a quick run down on accessing github metadata.
 tags: metadata
 categories: sample-posts external-services
 hidden: true
+sitemap: false
 ---
 
 A sample blog page that demonstrates the accessing of github meta data.
