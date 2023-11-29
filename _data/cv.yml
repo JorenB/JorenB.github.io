@@ -2,96 +2,57 @@
   type: map
   contents:
     - name: Full Name
-      value: Albert Einstein
+      value: Joren Willem Brunekreef
     - name: Date of Birth
-      value: 14th March 1879
+      value: 9 April 1990
     - name: Languages
-      value: English, German
+      value: English, Dutch <em>native</em>, German <em>intermediate</em>
 
 - title: Education
   type: time_table
   contents:
     - title: PhD
-      institution: University of Zurich, Zurich, Switzerland
-      year: 1905
+      institution: Radboud University Nijmegen, Nijmegen, The Netherlands
+      year: 2023
       description:
-        - Description 1.
-        - Description 2.
-        - title: Description 3.
-          contents:
-            - Sub-description 1.
-            - Sub-description 2.
-    - title: Federal teaching diploma
+        - "Advisor: prof. Renate Loll"
+        - "Subject: nonperturbative quantum gravity"
+        - "Thesis: <a href=\"https://arxiv.org/abs/2311.06910\">Zooming in on the Universe: In Search of Quantum Spacetime</a>"
+    - title: MSc
       institution: Eidgenössische Technische Hochschule, Zurich, Switzerland
-      year: 1900
+      year: 2016
       description:
-        - Description 1.
-        - Description 2.
+        - Physics
+        - "Thesis advisors: prof. Niklas Beisert and dr. Yunfeng Jiang"
+        - "Thesis: Scalar products of XXZ Heisenberg spin chain states in the semiclassical regime"
+    - title: BSc
+      institution: Utrecht University, Utrecht, The Netherlands
+      year: 2014
+      description:
+        - Physics & astronomy
+        - Mathematics
+        - "Thesis advisors: prof. Cristiane de Morais Smith and dr. Joost Slingerland"
+        - "Thesis: <a href=\"https://studenttheses.uu.nl/handle/20.500.12932/17738\">Topological Quantum Computation and Quantum Compilation</a>"
 
 - title: Experience
   type: time_table
   contents:
-    - title: Professor of Theoretical Physics
-      institution: Institute for Advanced Study, Princeton University
-      year: 1933 - 1955
+    - title: Postdoc
+      institution: Netherlands Cancer Institute, Amsterdam, The Netherlands
+      year: 2022 - present
       description:
-        - Description 1.
-        - Description 2.
-        - title: Description 3.
-          contents:
-            - Sub-description 1.
-            - Sub-description 2.
-    - title: Visiting Professor
-      institution: California Institute of Technology, Pasadena, California, US
-      year: 1933
+        - AI for oncology
+        - Image-guided adaptive radiotherapy
+
+    - title: Junior researcher
+      institution: University Medical Center, Utrecht, The Netherlands
+      year: 2022
       description:
-        - Description 1.
-        - Description 2.
-
-    - title: Director
-      institution: Kaiser Wilhelm Institute for Physics, Berlin, Germany.
-      year: 1917-1933
-
-    - title: Professor of Theoretical Physics
-      institution: Karl-Ferdinand University, Prague, Czechoslovakia
-      year: 1911 - 1917
+        - Infectious diseases modeling
+          
+    - title: Thesis intern
+      institution: National University of Ireland, Maynooth, Ireland
+      year: 2013
       description:
-
-    - title: Associate Professor of Theoretical Physics
-      institution: University of Zurich, Zurich, Switzerland
-      year: 1909 - 1911
-
-- title: Open Source Projects
-  type: time_table
-  contents:
-    - title: <a href="https://github.com/alshedivat/al-folio">al-folio</a>
-      year: 2015-now
-      description: A beautiful, simple, clean, and responsive Jekyll theme for academics.
-
-- title: Honors and Awards
-  type: time_table
-  contents:
-    - year: 1921
-      items: 
-        - Nobel Prize in Physics 
-        - Matteucci Medal
-    - year: 2029
-      items: 
-        - Max Planck Medal
-
-- title: Academic Interests
-  type: nested_list
-  contents:
-    - title: Topic 1.
-      items: 
-        - Description 1.
-        - Description 2.
-    - title: Topic 2.
-      items:
-        - Description 1.
-        - Description 2.
-
-- title: Other Interests
-  type: list
-  contents:
-    - <u>Hobbies:</u> Hobby 1, Hobby 2, etc.
+        - Topological quantum computation
+        - Quantum compilation

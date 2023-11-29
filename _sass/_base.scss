@@ -14,9 +14,12 @@ h6,
 em,
 div,
 li,
-span,
-strong {
+span {
   color: var(--global-text-color);
+}
+
+strong {
+    color: inherit;
 }
 
 hr {
@@ -39,7 +42,7 @@ table.table a {
   color: var(--global-theme-color);
 
   &:hover {
-    color: var(--global-theme-color);
+    color: var(--global-hover-color);
     text-decoration: underline;
   }
 

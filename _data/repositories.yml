@@ -1,12 +1,7 @@
 github_users:
-  - torvalds
-  - alshedivat
+  - jorenb
 
 github_repos:
-  - alshedivat/al-folio
-  - twbs/bootstrap
-  - jekyll/jekyll
-  - jquery/jquery
-  - FortAwesome/Font-Awesome
-  - jpswalsh/academicons
-  - mathjax/MathJax
+  - jorenb/3d-cdt
+  - jorenb/2d-cdt
+  - jorenb/quantum-compiling
