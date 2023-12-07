@@ -6,6 +6,10 @@
     function gtag(){ window.dataLayer.push(arguments); }
     gtag('js', new Date());
     gtag('config', '{{ site.google_analytics }}');
+    gtag('consent', 'default', {
+        'ad_storage': 'denied',
+        'analytics_storage': 'denied',
+    });
   </script>
 {%- endif -%}
 {%- if site.enable_cronitor_analytics -%}
