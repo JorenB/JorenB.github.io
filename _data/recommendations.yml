@@ -1,0 +1,58 @@
+categories:
+  - name: statistics
+    title: Statistics
+  - name: physics
+    title: Physics
+  - name: scientific-integrity
+    title: Scientific Integrity
+  - name: deep-learning
+    title: Deep Learning
+
+items:
+  - title: Improving Your Statistical Inferences
+    url: https://lakens.github.io/statistical_inferences/
+    authors: Daniël Lakens
+    description: >
+      Before reading this set of notes, I knew how to compute p-values and confidence intervals and I understood how to set up a Neyman-Pearson hypothesis test. However, I had only vague ideas of what these concepts exactly meant. Even worse, some of these ideas turned out to be flat wrong. Carefully reading the first seven sections of these notes helped me clear up a lot of confusion and ill-formed notions about statistical concepts. The "test yourself" questions at the end of each section are sufficiently difficult to check whether you grasped the main messages, and sufficiently simple so that you don't really have an excuse for skipping them. 
+    category: statistics
+  - title: Leakage and the Reproducibility Crisis in ML-based Science
+    url: https://arxiv.org/abs/2207.07048
+    authors: Sayash Kapoor and Arvind Narayanan
+    description: 
+    category: scientific-integrity
+  - title: Why Hypothesis Testers Should Spend Less Time Testing Hypotheses
+    url: https://journals.sagepub.com/doi/10.1177/1745691620966795
+    authors: Anne Scheel, Leonid Tiokhin, Peder Isager, and Daniël Lakens
+    description:
+    category: scientific-integrity
+      # - title: "Quantum Gravity from Causal Dynamical Triangulations: A Review"
+      #   url: https://iopscience.iop.org/article/10.1088/1361-6382/ab57c7
+      #   authors: Renate Loll
+      #   description: 
+      #   category: physics
+  - title: "Oral Histories: Edward Witten"
+    url: https://www.aip.org/history-programs/niels-bohr-library/oral-histories/46968
+    authors: David Zierler
+    description:
+    category: physics
+  - title: Quantum Gravity in 30 Questions
+    url: https://pos.sissa.it/406/316
+    authors: Renate Loll, Giuseppe Fabiano, Domenico Frattulillo, and Fabian Wagner
+    description:
+    category: physics
+  - title: Intro to Large Language Models
+    url: https://www.youtube.com/watch?v=zjkBMFhNj_g
+    authors: Andrej Karpathy
+    description:
+    category: deep-learning
+  - title: "Let's Build GPT: From Scratch, in Code, Spelled Out"
+    url: https://www.youtube.com/watch?v=kCc8FmEb1nY
+    authors: Andrej Karpathy
+    description:
+    category: deep-learning
+  - title: '"Attention", "Transformers", in Neural Network "Large Language Models"'
+    url: http://bactra.org/notebooks/nn-attention-and-transformers.html
+    authors: Cosma Shalizi
+    description: >
+      A no-nonsense investigation into the transformer architecture. The author is noticeably annoyed with the lack of precise and carefully worded discussions on transformers and self-attention, and he does a great job at partially fixing this without resorting to handwavy explanations. Also, he's brutally honest about the parts he still doesn't understand (like, why layer-norm?). Something that especially stuck with me&#58; the dot-product attention matrix is essentially some kind of <a href="https://teazrq.github.io/SMLR/kernel-smoothing.html">kernel smoothing</a> in the embedding space.
+    category: deep-learning
