@@ -4,7 +4,7 @@ title: recommended
 permalink: /recommended/
 description: Stuff I find interesting
 nav: true
-sitemap: false
+sitemap: true
 nav_order: 5
 toc:
 sidebar: left
