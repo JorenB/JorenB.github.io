@@ -43,16 +43,24 @@ items:
   - title: Intro to Large Language Models
     url: https://www.youtube.com/watch?v=zjkBMFhNj_g
     authors: Andrej Karpathy
-    description:
+    description: >
+      If you want to get a rough understanding of the way ChatGPT works, this video is a great starting point. An especially useful notion to internalize is that language models are essentially trained to 'dream' text, and that we nudge its dreams into useful answers through our prompts. It may also provide some intuition for why ChatGPTs basic reasoning capabilities are sometimes so surprisingly bad in comparison to how well it works for other tasks.
     category: deep-learning
   - title: "Let's Build GPT: From Scratch, in Code, Spelled Out"
     url: https://www.youtube.com/watch?v=kCc8FmEb1nY
     authors: Andrej Karpathy
-    description:
+    description: >
+      The highly technical companion to the video above. I used to have a hard time trying to understand the Transformer architecture, even after reading some nice <a href="https://jalammar.github.io/visualizing-neural-machine-translation-mechanics-of-seq2seq-models-with-attention/">expository</a> <a href="https://jalammar.github.io/illustrated-transformer/">blog</a> <a href="https://www.columbia.edu/~jsl2239/transformers.html">posts</a>. In this video, you get to build a simple decoder-only Transformer from the ground up (that is, if you consider PyTorch as sea level), all the while seeing how the different elements in the setup contribute to a progressively better performance. I suggest to watch the entire thing from start to finish first at 1.5x speed, in order to get a general impression of where you're going. Then, restart from the beginning, and pause every now and then to type out (and run) the code yourself. Experiment with different hyperparameter values (e.g. for block size, batch size, embedding dimension, etc) to get a feel for the tradeoffs you have to deal with here. Another nice exercise is to change the tokenization so that the tokens are bigrams instead of single characters.
+    category: deep-learning
+  - title: "tinygrad"
+    url: https://github.com/tinygrad/tinygrad
+    authors: tiny corp
+    description: >
+      A simple and lightweight autograd/tensor library for constructing deep learning models. Its syntax resembles PyTorch, although it's not completely identical. I found it instructive to redo the <a href="https://www.youtube.com/watch?v=kCc8FmEb1nY">GPT From Scratch tutorial</a>, swapping out PyTorch for tinygrad. One downside&#58; it's under rapid development, so some features are not that stable &mdash; for example, the MPS backend was broken for some time on my MacOS version. The upside&#58; it's under rapid development, so this issue was fixed within a few weeks. They also offer cash bounties for certain code contributions, so fixing open issues can put a little cash in your pocket in addition to being somewhat educational.
     category: deep-learning
   - title: '"Attention", "Transformers", in Neural Network "Large Language Models"'
     url: http://bactra.org/notebooks/nn-attention-and-transformers.html
     authors: Cosma Shalizi
     description: >
-      A no-nonsense investigation into the transformer architecture. The author is noticeably annoyed with the lack of precise and carefully worded discussions on transformers and self-attention, and he does a great job at partially fixing this without resorting to handwavy explanations. Also, he's brutally honest about the parts he still doesn't understand (like, why layer-norm?). Something that especially stuck with me&#58; the dot-product attention matrix is essentially some kind of <a href="https://teazrq.github.io/SMLR/kernel-smoothing.html">kernel smoothing</a> in the embedding space.
+      A no-nonsense investigation into the transformer architecture. The author is noticeably annoyed with the lack of precise and carefully worded discussions on transformers and self-attention, and he does a great job at partially fixing this without resorting to handwavy explanations. Also, he's brutally honest about the parts he still doesn't understand (like, <i>why</i> layer-norm?). Something that especially stuck with me&#58; the dot-product attention matrix is essentially some kind of <a href="https://teazrq.github.io/SMLR/kernel-smoothing.html">kernel smoothing</a> in the embedding space.
     category: deep-learning

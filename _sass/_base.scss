@@ -204,7 +204,8 @@ blockquote {
   font-size: 0.875rem;
 
   a {
-    color: inherit;
+    // color: inherit;
+    color: var(--cyan);
 
     &:hover {
       color: var(--global-theme-color);
