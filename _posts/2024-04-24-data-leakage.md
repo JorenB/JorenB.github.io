@@ -1,11 +1,11 @@
 ---
 layout: distill
 title:  reporting concerns on data leakage
-date: 2024-04-24 11:01:00 Europe/Amsterdam
+date: 2024-04-30 11:01:00 Europe/Amsterdam
 description: 
 # tags: data-leakage response-prediction mri
 categories: 
-thumbnail: assets/img/2024-04-24-data-leakage/roc_curve-leaky.png
+thumbnail: assets/img/2024-04-30-data-leakage/roc_curve-leaky.png
 hidden: false
 sitemap: true
 bibliography: concerns-jdim.bib
@@ -17,14 +17,14 @@ toc:
   - name: wrapping up
 ---
 
-Today, the [Journal of Imaging Informatics in Medicine](https://link.springer.com/journal/10278) (formerly the Journal of Digital Imaging) published my [Letter to the Editor](https://link.springer.com/article/10.1007/s10278-024-01129-3) in which I raise concerns about data leakage in [this paper](https://link.springer.com/article/10.1007/s10278-018-0144-1)<d-cite key="ha2019prior"></d-cite> on predicting chemotherapy response from MRI data. Getting to this point was a valuable learning experience for me, and I thought it would be interesting to share some of my findings here.
+Today, the [Journal of Imaging Informatics in Medicine](https://link.springer.com/journal/10278) (formerly the Journal of Digital Imaging) published my [Letter to the Editor](https://link.springer.com/article/10.1007/s10278-024-01129-3) ([preprint](/assets/pdf/2024-04-30-data-leakage/letter-to-the-editor.pdf)) in which I raise concerns about data leakage in [this paper](https://link.springer.com/article/10.1007/s10278-018-0144-1)<d-cite key="ha2019prior"></d-cite> on predicting chemotherapy response from MRI data. Getting to this point was a valuable learning experience for me, and I thought it would be interesting to share some of my findings here.
 
 # how it all started
 
 In the summer of 2023, I collaborated with several others on a review<d-cite key="logullo2024ai"></d-cite> about applications of AI for magnetic resonance imaging (MRI) of the breast. One subtopic that we highlighted was _treatment response prediction_ in the context of breast cancer. The goal here is to predict the likelihood that a patient will respond well to a specific cancer treatment strategy, purely based on data collected **before** the treatment is started. For breast cancer, most research thus far has focused on predicting the outcome of _neoadjuvant chemotherapy_ (NAC). As per the scope of our review, we restricted attention to papers where the data used to make these predictions included pre-treatment breast MRI scans. The hypothesis of such studies is that some MR imaging features of the breast and/or tumor tissue (potentially augmented with some clinical variables, such as patient age and the presence of a high-risk mutation) correlate with the likelihood to respond to treatment. Usually, "response" is defined as *pathologic complete response*, which is determined post-treatment by inspecting tissue samples for the presence of residual tumor cells.
 <div class="row justify-content-center">
     <div class="col-5">
-        {% include figure.html path="assets/img/2024-04-24-data-leakage/axial-duke.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+        {% include figure.html path="assets/img/2024-04-30-data-leakage/axial-duke.png" class="img-fluid rounded z-depth-1" zoomable=true %}
     </div>
 </div>
 <div class="caption">A 2D slice of a breast MRI scan, taken from the public Duke breast MRI dataset.<d-cite key="saha2018machine"></d-cite></div>
@@ -36,7 +36,7 @@ However, breast cancer is a complex disease and the effectiveness of a specific 
 
 <div class="row justify-content-center">
     <div class="col-10">
-        {% include figure.html path="assets/img/2024-04-24-data-leakage/roc-joo.jpeg" class="img-fluid rounded z-depth-1" zoomable=true %}
+        {% include figure.html path="assets/img/2024-04-30-data-leakage/roc-joo.jpeg" class="img-fluid rounded z-depth-1" zoomable=true %}
     </div>
 </div>
 
@@ -47,7 +47,7 @@ The overall performance of such a classifier model is often reported as the Area
 Therefore, I was quite surprised when another study<d-cite key="ha2019prior"></d-cite>, using an image-only dataset of just 141 patients, presented the following results for the CNN prediction model they constructed:
 <div class="row justify-content-center">
     <div class="col-8">
-        {% include figure.html path="assets/img/2024-04-24-data-leakage/roc-ha.jpeg" class="img-fluid rounded z-depth-1" zoomable=true %}
+        {% include figure.html path="assets/img/2024-04-30-data-leakage/roc-ha.jpeg" class="img-fluid rounded z-depth-1" zoomable=true %}
     </div>
 </div>
 
@@ -61,7 +61,7 @@ The MRI scans used for this study are 3D volumes. There are multiple ways in whi
 
 <div class="row justify-content-center">
     <div class="col-5">
-        {% include figure.html path="assets/img/2024-04-24-data-leakage/ha-slice.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+        {% include figure.html path="assets/img/2024-04-30-data-leakage/ha-slice.png" class="img-fluid rounded z-depth-1" zoomable=true %}
     </div>
 </div>
 
@@ -78,13 +78,13 @@ The correct approach in this scenario would be to randomly assign 80% (n=113) of
 Suppose one simply shuffles all these 3107 slices and subsequently assigns the first 80% to a train set and the remaining 20% to a test set. Considering that there are on average 22 slices per patient, **it is then extremely likely that different MRI slices of the same patient end up in both the train and test set.** This would imply the setup is suffering from **data leakage**: even though there is *technically* no overlap between the train and test data, one should take into account that nearby slices of the same patient can look highly similar. As mentioned in the MRI Methods section of the paper, the slice thickness of the scans was 2-3mm, so that neighboring slices show nearly the same parts of the patient's anatomy. To see how similar such neighboring slices can be, consider the following sample taken from the public Duke Breast MRI dataset:<d-cite key="saha2018machine"></d-cite>
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/2024-04-24-data-leakage/duke-slice-0.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+        {% include figure.html path="assets/img/2024-04-30-data-leakage/duke-slice-0.png" class="img-fluid rounded z-depth-1" zoomable=true %}
     </div>
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/2024-04-24-data-leakage/duke-slice-1.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+        {% include figure.html path="assets/img/2024-04-30-data-leakage/duke-slice-1.png" class="img-fluid rounded z-depth-1" zoomable=true %}
     </div>
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/2024-04-24-data-leakage/duke-slice-2.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+        {% include figure.html path="assets/img/2024-04-30-data-leakage/duke-slice-2.png" class="img-fluid rounded z-depth-1" zoomable=true %}
     </div>
 </div>
 It's easy to imagine what could happen in this case: instead of discovering useful imaging features that correlate with treatment response, the model can simply find a shortcut by "memorizing" what a patient's anatomy approximately looks like, along with that patient's response label. When a similar MRI slice is encountered in the "held-back" test set, the model can spit out the response label of the corresponding patient, without actually having learned any *generalizable* features. Neural networks are notoriously great at memorizing their training data, so finding this shortcut would be a piece of cake for the CNN they used.
@@ -115,10 +115,10 @@ Subsequently, I made two random 80/20 train/test splits of the slices: one "prop
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/2024-04-24-data-leakage/roc_curve-proper.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+        {% include figure.html path="assets/img/2024-04-30-data-leakage/roc_curve-proper.png" class="img-fluid rounded z-depth-1" zoomable=true %}
     </div>
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/2024-04-24-data-leakage/roc_curve-leaky.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+        {% include figure.html path="assets/img/2024-04-30-data-leakage/roc_curve-leaky.png" class="img-fluid rounded z-depth-1" zoomable=true %}
     </div>
 </div>
 That's quite a big difference. It may seem surprising that the "properly" trained/evaluated model attains an AUC below 0.5 — worse than what is expected from random guessing. However, the 0.5 is just an expectation value, and the AUC of any given random classifier is likely to be found somewhere close to this number. Therefore, we can interpret the leftmost graph as evidence that the model couldn't find *any* generalizable imaging features relevant for predicting treatment response during training. On the other hand, the model trained on the "leaky" set of slices attains a near-perfect performance, misclassifying only a handful of images.
@@ -127,8 +127,8 @@ Although this experiment still does not conclusively prove that the slice-level 
 
 # wrapping up
 
-I now felt the case was strong enough to actually draft the letter to the editor. As a final touch, my other PI ([Jonas Teuwen](https://aiforoncology.nl/)) suggested to ask some more senior people in the field to co-sign the letter. Getting some attention to the issue is probably much easier if some well-known names are attached to the message, as opposed to just one random postdoc (me). Everyone I asked generously agreed to co-sign, and I officially submitted the letter on April 10, 2024 — a little over half a year after I first posted the comment on PubPeer. It was quickly accepted and has now appeared online after a brief production process. To my knowledge, the authors have still not responded as of today.
+I now felt the case was strong enough to actually draft the letter to the editor. As a final touch, my other PI ([Jonas Teuwen](https://aiforoncology.nl/)) suggested to ask some more senior people in the field to co-sign the letter. I approached several colleagues and collaborators, all of whom agreed that this matter deserved further attention, and all agreed to co-sign. I officially submitted the letter on April 10, 2024 — a little over half a year after I first posted the comment on PubPeer. It was quickly accepted and has now appeared online after a brief production process. To my knowledge, the authors have still not responded as of today.
 
 A minor disappointment was that publishing the letter with full Open Access would set me back $4390, which seemed somewhat excessive. My institution does have an Open Access agreement in place with SpringerNature, but apparently this does not extend to editorial letters. I therefore had to opt for the subscription-only publishing route. The upside is that this motivated me to write this post, since I felt that having the full story behind a paywall would partially defeat its purpose.
 
-Overall, the process has been a rewarding and interesting experience. I do feel that the story shouldn't end with the publication of this letter. After all, my concern was that the original work would set an unreasonable benchmark for follow-up literature, and that won't change in the current situation. Primarily, I hope that the authors will still take up the invitation to respond and clarify their methods. I don't mind who turns out to be correct, but open discourse about these issues is the only way for science to proceed.
+I do feel that the story shouldn't end with the publication of this letter. After all, my concern was that the original work would set an unreasonable benchmark for follow-up literature, and that won't change in the current situation. Primarily, I hope that the authors will still take up the invitation to respond and clarify their methods. I don't mind who turns out to be correct, but open discourse about these issues is the only way for science to proceed.
