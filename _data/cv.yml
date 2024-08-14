@@ -6,7 +6,27 @@
     - name: Date of Birth
       value: 9 April 1990
     - name: Languages
-      value: English, Dutch <em>native</em>, German <em>intermediate</em>
+      value: English <em>fluent</em>, Dutch <em>native</em>, German <em>intermediate</em>
+
+- title: Work
+  type: time_table
+  contents:
+    - title: Postdoctoral fellow
+      institution: Netherlands Cancer Institute, Amsterdam, The Netherlands
+      year: 2022 - present
+      description:
+        - AI for oncology
+        - Image-guided adaptive radiotherapy
+    - title: PhD student
+      institution: Radboud University Nijmegen, Nijmegen, The Netherlands
+      year: 2017 - 2023
+      description:
+        - Nonperturbative quantum gravity
+    - title: Junior researcher
+      institution: University Medical Center, Utrecht, The Netherlands
+      year: 2022
+      description:
+        - Infectious diseases modeling
 
 - title: Education
   type: time_table
@@ -34,22 +54,16 @@
         - "Thesis advisors: prof. Cristiane de Morais Smith and dr. Joost Slingerland"
         - "Thesis: <a href=\"https://studenttheses.uu.nl/handle/20.500.12932/17738\">Topological Quantum Computation and Quantum Compilation</a>"
 
-- title: Experience
+          
+- title: Other experience
   type: time_table
   contents:
-    - title: Postdoc
-      institution: Netherlands Cancer Institute, Amsterdam, The Netherlands
-      year: 2022 - present
-      description:
-        - AI for oncology
-        - Image-guided adaptive radiotherapy
-
-    - title: Junior researcher
-      institution: University Medical Center, Utrecht, The Netherlands
-      year: 2022
-      description:
-        - Infectious diseases modeling
-          
+    - title: Associate editor
+      institution: BJR|Open
+      year: 2024 - present
+    - title: Institutional Review Board member
+      institution: Netherlands Cancer Institute
+      year: 2023 - present
     - title: Thesis intern
       institution: National University of Ireland, Maynooth, Ireland
       year: 2013
