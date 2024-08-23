@@ -54,6 +54,13 @@
         - "Thesis advisors: prof. Cristiane de Morais Smith and dr. Joost Slingerland"
         - "Thesis: <a href=\"https://studenttheses.uu.nl/handle/20.500.12932/17738\">Topological Quantum Computation and Quantum Compilation</a>"
 
+- title: Grants
+  type: time_table
+  contents:
+    - title: NGF AiNed XS Europa 24/2
+      maindescription: <a href="https://www.nwo.nl/nieuws/aardbevingen-kankeronderzoek-en-kan-ai-ons-wel-vertrouwen-10-grensverleggende-ai-projecten-van-start-bij-ngf-ained-xs-europa">FOMO-Shift — self-supervised distribution matching for safe deployment of AI foundation models</a>
+      description: In collaboration with the University of Ghent and LMU Munich
+      year: 2024
           
 - title: Other experience
   type: time_table
