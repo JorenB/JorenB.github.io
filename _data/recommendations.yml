@@ -40,6 +40,12 @@ items:
     authors: Renate Loll, Giuseppe Fabiano, Domenico Frattulillo, and Fabian Wagner
     description:
     category: physics
+  - title: Diffusion Is Spectral Autoregression
+    url: https://sander.ai/2024/09/02/spectral-autoregression.html
+    authors: Sander Dieleman
+    description: >
+      Insightful blog post drawing parallels between autoregression and diffusion models, especially in image generation. I found the "radially averaged power spectral density" figures especially interesting, in which it is shown that there is a typical power law behavior of frequency power spectra in natural images (the author also provides a heuristic explanation). This frequency power spectrum perspective is then used to argue that diffusion models start by constructing large-scale features, and gradually fill in perceptual details in subsequent diffusion steps, which leads to the analogy with autoregressive models.
+    category: deep-learning
   - title: Intro to Large Language Models
     url: https://www.youtube.com/watch?v=zjkBMFhNj_g
     authors: Andrej Karpathy
