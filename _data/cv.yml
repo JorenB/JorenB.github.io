@@ -6,7 +6,7 @@
     - name: Date of Birth
       value: 9 April 1990
     - name: Languages
-      value: English <em>fluent</em>, Dutch <em>native</em>, German <em>intermediate</em>
+      value: Dutch <em>native</em>, English <em>fluent</em>, German <em>intermediate</em>,<br/>Mandarin <em>beginner</em>
 
 - title: Work
   type: time_table
