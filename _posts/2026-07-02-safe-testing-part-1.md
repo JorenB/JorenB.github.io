@@ -20,7 +20,7 @@ toc:
 
 ## Setting the stage
 
-The past few years have seen increasing media coverage on safe testing, based on e-values. The framework promises multiple advantages over classical hypothesis testing approaches based on p-values. A major selling point is continuous monitoring of the data as observations trickle in, allowing us to conclude experiments early if the results are sufficiently convincing. Furthermore, e-values quantify the _evidence against the null hypothesis_, whereas p-values mostly serve to make a binary decision on the statistical (non-)significance of a result.
+The past few years have seen increasing institutional recognition of [safe testing](https://doi.org/10.1093/jrsssb/qkae011), based on e-values, including [Peter Grünwald's ERC Advanced Grant](https://www.cwi.nl/en/news/erc-advanced-grant-for-peter-grunwald-for-research-on-a-revolutionary-statistical-theory/) and [Rianne de Heide's NWO grant](https://www.utwente.nl/en/news/2025/2/137946/rianne-de-heide-receives-a-substantial-grant-for-developing-a-flexible-statistical-method) to further develop the theory. The framework promises multiple advantages over classical hypothesis testing approaches based on p-values. A major selling point is continuous monitoring of the data as observations trickle in, allowing us to conclude experiments early if the results are sufficiently convincing. Furthermore, e-values quantify the _evidence against the null hypothesis_, whereas p-values mostly serve to make a binary decision on the statistical (non-)significance of a result.
 
 That said, I have never seen a scientific paper report e-values instead of p-values yet. This is not surprising. Some researchers might be interested in setting up their analysis from an e-value perspective, but it is likely that peer reviewers would subsequently have difficulty interpreting the findings. Nearly all scientists are trained in the p-value paradigm, and e-values are the new kid on the block.
 
@@ -48,7 +48,7 @@ In fact, we do not always need to wait for the full 37. If we reach 24 premium v
 
 ## Anytime-valid testing
 
-The classical approach is inherently a *fixed-n design*. The anytime-valid (AV) testing framework (based on e-values) allows us to take a different approach in which we can *continuously* monitor the experiment's results. For each new observation, we simply update our running measure of evidence, which might grow enough to trigger a null rejection ("experiment successful"). No need to specify a sample size upfront; we keep collecting data until we either 1) find a null rejection or 2) exhaust our budget or patience. Furthermore, the anytime-valid test provides us with a **measure of evidence** that we have collected so far (against the null), which can inform us about whether or not to continue the experiment for much longer.
+The classical approach is inherently a *fixed-n design*. The anytime-valid (AV) testing framework (based on [e-values](https://doi.org/10.1093/jrsssb/qkae011)) allows us to take a different approach in which we can *continuously* monitor the experiment's results. For each new observation, we simply update our running measure of evidence, which might grow enough to trigger a null rejection ("experiment successful"). No need to specify a sample size upfront; we keep collecting data until we either 1) find a null rejection or 2) exhaust our budget or patience. Furthermore, the anytime-valid test provides us with a **measure of evidence** that we have collected so far (against the null), which can inform us about whether or not to continue the experiment for much longer.
 
 That's the sales pitch. But how does it work?
 
@@ -99,12 +99,12 @@ The evidence typically climbs steadily for $H_1$ trajectories, but there is a su
 
 The table below shows the summary statistics of the 10,000 simulated trajectories:
 
-| statistic | classical | classical + curtailment | anytime-valid |
+| statistic | classical | classical + <br> curtailment | anytime-valid |
 |---|---|---|---|
-| % reject by $n=37$ *(classical power)* | 81% | 81% | 64% |
+| % reject by $n=37$ <br> *(classical power)* | 81% | 81% | 64% |
 | % reject by $n=50$ | 81% | 81% | 77% |
-| median (mean) rejection $n$ *(among rejecters by $n=50$)* | 37 (37) | 33 (33) | 25 (26) |
-| 25th–75th percentile *(same population)* | 37–37 | 31–35 | 17–35 |
+| median (mean) rejection $n$ <br> *(among rejecters by $n=50$)* | 37 (37) | 33 (33) | 25 (26) |
+| 25th–75th percentile <br> *(same population)* | 37–37 | 31–35 | 17–35 |
 
 We see in the first row that the power of the AV test is lower at the classical experiment's conclusion (at $n=37$), meaning that we have a smaller chance of finding a positive result by that time. By $n=50$ the AV test has nearly closed the gap with the classical power. However, among the 77% that do reject by $n=50$, the median rejection $n$ is 25 — well below the classical test's $n=37$. Furthermore, the classical test has no way to continue past $n=37$, so its power is frozen at 81% the moment the 37th participant is in. The AV test has no such ceiling. Its power can keep climbing beyond that point through continuation of the experiment. This naturally raises the question: how does this power evolve over time?
 
@@ -143,6 +143,14 @@ Now that we've gone through the full e-value analysis of our coffee tasting expe
 Each row traces back to something we've seen. Instead of fixing the sample size upfront, we monitor data continuously and let the evidence build up. Peeking is forbidden in the classical framework, but in the AV context we update the e-value each time a new participant shows up and check whether $E$ has crossed the threshold. The fixed-sample design gives a single yes/no verdict, whereas the e-value approach allows us to grow the body of evidence. We can even combine evidence from multiple independent studies, simply by multiplying all their e-values together. Two independent taste tests, or ten, can be combined into one valid verdict without any extra machinery.
 
 This concludes our basic description of the anytime-valid testing framework, applied to a simple example scenario. There are two separate topics I'd like to address in future posts. One is the use of different stopping rules for deciding when to continue or wrap up the experiment, as already hinted at in the previous section. The other is something we largely glossed over so far: throughout the analysis we have pretended that our guess for the effect size under $H_1$ was exactly correct. In practice, this does not occur, and we will always have to deal with a discrepancy between the *expected* and the *real* effect size. In another future post I'd like to discuss in more detail how the e-value analysis behaves under this "misspecification" of $H_1$.
+
+---
+
+## References
+
+- Grünwald, P., de Heide, R., & Koolen, W.M. (2024). [Safe testing](https://doi.org/10.1093/jrsssb/qkae011). *Journal of the Royal Statistical Society B*, 86(5), 1091–1128.
+- CWI (2024). [ERC Advanced Grant for Peter Grünwald for research on a revolutionary statistical theory](https://www.cwi.nl/en/news/erc-advanced-grant-for-peter-grunwald-for-research-on-a-revolutionary-statistical-theory/). *CWI News*.
+- University of Twente (2025). [Rianne de Heide receives a substantial grant for developing a flexible statistical method](https://www.utwente.nl/en/news/2025/2/137946/rianne-de-heide-receives-a-substantial-grant-for-developing-a-flexible-statistical-method). *UT News*.
 
 ---
 
