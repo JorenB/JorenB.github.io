@@ -180,6 +180,7 @@ exclude:
   - Gemfile.lock
   - vendor
   - backup
+  - notes
 keep_files:
   - CNAME
   - .nojekyll
