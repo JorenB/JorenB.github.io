@@ -143,3 +143,9 @@ Now that we've gone through the full e-value analysis of our coffee tasting expe
 Each row traces back to something we've seen. Instead of fixing the sample size upfront, we monitor data continuously and let the evidence build up. Peeking is forbidden in the classical framework, but in the AV context we update the e-value each time a new participant shows up and check whether $E$ has crossed the threshold. The fixed-sample design gives a single yes/no verdict, whereas the e-value approach allows us to grow the body of evidence. We can even combine evidence from multiple independent studies, simply by multiplying all their e-values together. Two independent taste tests, or ten, can be combined into one valid verdict without any extra machinery.
 
 This concludes our basic description of the anytime-valid testing framework, applied to a simple example scenario. There are two separate topics I'd like to address in future posts. One is the use of different stopping rules for deciding when to continue or wrap up the experiment, as already hinted at in the previous section. The other is something we largely glossed over so far: throughout the analysis we have pretended that our guess for the effect size under $H_1$ was exactly correct. In practice, this does not occur, and we will always have to deal with a discrepancy between the *expected* and the *real* effect size. In another future post I'd like to discuss in more detail how the e-value analysis behaves under this "misspecification" of $H_1$.
+
+---
+
+<small>
+*Disclaimer: this post was largely written by me, with substantial copy-editing help from Claude Sonnet. I take full responsibility for the contents.*
+</small>
