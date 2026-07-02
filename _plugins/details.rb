@@ -6,7 +6,7 @@ module Jekyll
   
         def initialize(tag_name, markup, tokens)
           super
-          @caption = markup
+          @caption = markup.strip.sub(/\A(["'])(.*)\1\z/, '\2')
         end
   
         def render(context)

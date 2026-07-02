@@ -1,6 +1,6 @@
 ---
 layout: distill
-title: "Safe testing in practice — Part 1: a practical primer"
+title: e-values in practice — part 1
 date: 2026-07-02
 description: A practitioner's introduction to e-values and anytime-valid testing, walking through a simple coffee taste-test example and comparing it step by step to the classical approach.
 hidden: false
@@ -24,18 +24,17 @@ The past few years have seen increasing media coverage on safe testing, based on
 
 That said, I have never seen a scientific paper report e-values instead of p-values yet. This is not surprising. Some researchers might be interested in setting up their analysis from an e-value perspective, but it is likely that peer reviewers would subsequently have difficulty interpreting the findings. Nearly all scientists are trained in the p-value paradigm, and e-values are the new kid on the block.
 
-However, most work on e-values so far is highly mathematical. When I initially got interested in the framework, I had a hard time finding accessible resources on how to actually compute an e-value _in practice_. This post is an attempt to bridge that gap: I walk through a concrete example, first the classical approach, then its e-value counterpart.
-
+However, most work on e-values so far is highly mathematical. When I initially got interested in the framework, I had a hard time finding accessible resources on how to actually compute an e-value _in practice_. This post is an attempt to bridge that gap: I walk through a concrete example, covering first the classical approach, then its e-value counterpart.
 
 ## The scenario
 
-We have two coffee brands: "premium" and "budget". Our goal is to figure out whether people prefer the premium brand over the budget brand. To this end, we set up an experiment where we have participants do a blind taste of both brands. After tasting, each participant indicates which of the two samples they preferred (abstaining is not allowed). Our null hypothesis $H_0$ is that there is no preference: each participant is equally likely to pick one sample as the other. Under this null hypothesis, the probability that a participant picks the premium brand as their preference equals $p=0.5$. Let's say we only care about deviations in one direction, with the premium being preferred. Furthermore, we set the significance level to $\alpha = 0.05$, meaning that we have at most a 5% chance of rejecting our null hypothesis — *given that this null hypothesis is, in fact, true* (this is the Type-I error rate). If our data forces us to reject the null, we'd claim that people indeed prefer premium coffee over the budget brand.
+We have two coffee brands: "premium" and "budget". Our goal is to figure out whether people prefer the premium brand over the budget brand. To this end, we set up an experiment where we have participants do a blind taste of both brands. After tasting, each participant indicates which of the two samples they preferred (abstaining is not allowed). Our null hypothesis $H_0$ is that there is no preference: each participant is equally likely to pick one sample as the other. Under this null hypothesis, the probability that a participant picks the premium brand as their preference equals $p=0.5$. Let's say we only care about deviations in one direction, with the premium being preferred. Furthermore, we set the significance level to $\alpha = 0.05$, meaning that we have at most a 5% chance of rejecting our null hypothesis — *given that this null hypothesis is, in fact, true* (this is the Type-I error rate). If our data force us to reject the null, we'd claim that people indeed prefer premium coffee over the budget brand.
 
 However, it might be the case that the overall preference is tiny, and that only 51% of people prefer premium over budget. We are not interested in such a result, and in an experiment like this one we'd typically specify a *minimally relevant effect size*. Furthermore, detecting tiny effect sizes would require a huge number of participants, making our study hopelessly expensive. Let's say we only consider the effect meaningful if at least 70% of participants prefer premium. This becomes our alternative hypothesis $H_1: p = 0.7$.
 
 ## The traditional approach
 
-We use the classical Neyman-Pearson hypothesis testing framework. The null hypothesis $H_0$ states that the preference $p = 0.5$, the alternative $H_1$ says that $p = 0.7$ — right at the boundary of our minimally relevant effect size. As before, we cap the Type-I error rate at $\alpha = 0.05$. We fix the desired power at 80%. So: we want to have at least an 80% chance of rejecting $H_0$, given that $H_1$ is true. If the effect is stronger in practice ($p > 0.7$) the experiment's power increases.
+We use the classical Neyman-Pearson hypothesis testing framework. The null hypothesis $H_0$ states that the preference $p = 0.5$, the alternative $H_1$ says that $p = 0.7$ — right at the boundary of our minimally relevant effect size. As before, we cap the Type-I error rate at $\alpha = 0.05$. We fix the desired power at 80%. So: we want to have at least an 80% chance of rejecting $H_0$, given that $H_1$ is true. If the effect is stronger in practice ($p > 0.7$), the experiment's power increases.
 
 A power calculation reveals that we require $n=37$ participants to reject $H_0$ at the $\alpha = 0.05$ level with at least 80% power.
 
@@ -49,11 +48,11 @@ In fact, we do not always need to wait for the full 37. If we reach 24 premium v
 
 ## Anytime-valid testing
 
-The classical approach is inherently a *fixed-n design*. The anytime-valid (AV) testing framework (based on e-values) allows us to take a different approach in which we can *continuously* monitor the experiment's results. For each new observation, we do another statistical test, and each such test might lead to a null rejection ("experiment successful"). No need to specify a sample size upfront; we keep collecting data until we either 1) find a null rejection or 2) exhaust our budget or patience. Furthermore, the anytime-valid test provides us with a **measure of evidence** that we have collected so far (against the null), which can inform us about whether or not to continue the experiment for much longer.
+The classical approach is inherently a *fixed-n design*. The anytime-valid (AV) testing framework (based on e-values) allows us to take a different approach in which we can *continuously* monitor the experiment's results. For each new observation, we simply update our running measure of evidence, which might grow enough to trigger a null rejection ("experiment successful"). No need to specify a sample size upfront; we keep collecting data until we either 1) find a null rejection or 2) exhaust our budget or patience. Furthermore, the anytime-valid test provides us with a **measure of evidence** that we have collected so far (against the null), which can inform us about whether or not to continue the experiment for much longer.
 
 That's the sales pitch. But how does it work?
 
-The anytime-valid test builds on an **e-value**. For our simple scenario, a possible e-value is the **Bayes factor** of the alternative hypothesis versus the null. The Bayes factor measures how much more likely it was to observe some data under $H_1$ than under $H_0$. In our experiment, our observations are the number of premium preferences $k$ out of the number $n$ of participants observed *so far*. The Bayes factor — our e-value — for this experiment has the following expression:
+The anytime-valid test builds on an **e-value**. For our simple scenario, a possible e-value is the **Bayes factor** of the alternative hypothesis versus the null. The Bayes factor measures how much more likely it was to observe some data under $H_1$ than under $H_0$. In our experiment, our observations are the number of premium preferences $k$ out of $n$ participants observed *so far*. The Bayes factor — our e-value — for this experiment has the following expression:
 
 $$
 E = 1.4^k \cdot 0.6^{n-k}
@@ -78,27 +77,23 @@ The rejection criterion for this anytime-valid test is simple: at the significan
 
 Now let's see how this would look.
 
-
 ## Simulated trajectories
 
-We simulate three taste test experiments under each scenario, each running up to $n=50$ participants. Under a real preference at exactly our design rate ($p = 0.7$, left) the evidence climbs, sooner or later crossing the $E=20$ threshold where we can declare significance. If there is no preference ($p = 0.5$, right), the e-value generally drifts near 1. At most 5% of these no-preference trajectories will ever cross the threshold: this is the Type-I error control offered by the anytime-valid testing framework.
+We simulate three taste test experiments under each scenario, each running up to $n=50$ participants. Under a real preference at exactly our design rate ($p = 0.7$, left), the evidence climbs, sooner or later crossing the $E=20$ threshold where we can declare significance. If there is no preference ($p = 0.5$, right), the e-value generally drifts near 1. At most 5% of these no-preference trajectories will ever cross the threshold: this is the Type-I error control offered by the anytime-valid testing framework.
 
-{% include figure.html path="assets/img/2026-07-02-safe-testing-part-1/fig1_trajectories.png" class="img-fluid rounded z-depth-1" zoomable=true %}
-<div class="caption">A handful of taste tests. You declare at the first crossing of $E = 20$.</div>
+{% include figure.html path="assets/img/2026-07-02-safe-testing-part-1/fig1_trajectories.png" class="img-fluid rounded z-depth-1" zoomable=true caption="A handful of taste tests. You declare at the first crossing of $E = 20$." %}
 
 We see that two out of three premium-preference runs (left) reach a rejection well before the $n=37$ mark. One run even rejects at only 12 participants, having seen only one budget pick by that time. Even with curtailment, the earliest time the classical test could have rejected is at 24 participants. The blue curve also rejects early, at $n=25$. The purple trajectory shows what we pay for flexibility: it eventually does reject, but it needs 8 more participants than the classical test to do so (and 11 more when comparing to the curtailed classical test).
 
-> **⚠️ How not to use it:** The decision is the **first** crossing of $E=20$. The blue curve illustrates why: after crossing at $n=25$, it dips back down towards $E\approx4$ before climbing again. That dip doesn't undo the earlier decision. Once $E$ has crossed the threshold, the anytime-valid framework guarantees the rejection stands, no matter what happens to $E$ afterwards.
+There is a subtlety here that is worth pointing out: the decision is the **first** crossing of $E=20$ and this decision is not reversed if the curve drops below the threshold later on. The blue curve illustrates such a scenario: after crossing at $n=25$, it dips back down towards $E\approx4$ before climbing again. That dip doesn't undo the earlier decision. Once $E$ has crossed the threshold, the anytime-valid framework guarantees the rejection stands, no matter what happens to $E$ afterwards.
 
 Now it's nice to see that the AV test *can* reject early. But is this the typical behavior? And how soon can we expect a rejection *on average*?
 
-
 ## The whole population — the cloud
 
-Instead of simulating just three trajectories, we now simulate 10,000 and investigate their aggregate behavior. Below we see the resulting *median* e-value at each $n$, along with bands indicating the quartiles and 90th percentiles. We also overlay the three example trajectories from the earlier figure.
+Instead of simulating just three trajectories, we now simulate 10,000 and investigate their aggregate behavior. Below we see the resulting *median* e-value at each $n$, along with bands indicating the quartiles and the 10th–90th percentile range. We also overlay the three example trajectories from the earlier figure.
 
-{% include figure.html path="assets/img/2026-07-02-safe-testing-part-1/fig2_cloud.png" class="img-fluid rounded z-depth-1" zoomable=true %}
-<div class="caption">Zooming out: most real-preference runs cross 20; almost none of the no-preference runs do.</div>
+{% include figure.html path="assets/img/2026-07-02-safe-testing-part-1/fig2_cloud.png" class="img-fluid rounded z-depth-1" zoomable=true caption="Most real-preference runs cross 20, almost none of the no-preference runs do." %}
 
 The evidence typically climbs steadily for $H_1$ trajectories, but there is a substantial spread. Under $H_0$ the trajectories largely stay low, drifting near 1 or below throughout. Since this figure shows the *current distribution* of $E$ for each $n$, we cannot extract typical values for the number of participants required for a null rejection. However, we do see that the early-rejecting orange trajectory is clearly a "lucky" outlier that we'd only rarely encounter, whereas the purple curve quite closely tracks the median for some time.
 
@@ -115,19 +110,17 @@ We see in the first row that the power of the AV test is lower at the classical 
 
 ## Power is a curve, not a number
 
-The power of the anytime-valid test is the cumulative probability that we have observed a rejection by participant $n$. Therefore, it does not have a fixed value (like the classical power), but it rather grows with each new participant. Below we visualize this growth as a function of $n$, based on 2 million simulated trajectories where participants indeed had a $p=0.7$ preference for premium coffee. The graph shows what fraction of trajectories have crossed the $E=20$ threshold (for significance level $\alpha = 0.05$) at or before each value of $n$.
+The power of the anytime-valid test is the cumulative probability that we have observed a rejection by participant $n$. Therefore, it does not have a fixed value (like the classical power), but rather grows with each new participant. Below we visualize this growth as a function of $n$, based on 2 million simulated trajectories where participants indeed had a $p=0.7$ preference for premium coffee. The graph shows what fraction of trajectories have crossed the $E=20$ threshold (for significance level $\alpha = 0.05$) at or before each value of $n$.
 
-{% include figure.html path="assets/img/2026-07-02-safe-testing-part-1/fig3_power_over_time.png" class="img-fluid rounded z-depth-1" zoomable=true %}
-<div class="caption">The AV test's power grows continuously, eventually surpassing that of the classical test.</div>
+{% include figure.html path="assets/img/2026-07-02-safe-testing-part-1/fig3_power_over_time.png" class="img-fluid rounded z-depth-1" zoomable=true caption="The AV test's power grows continuously, eventually surpassing that of the classical test." %}
 
 At the classical experiment's $n=37$ conclusion, the AV test is still behind. However, it catches up and overtakes at $n=55$, exceeding classical's 81% power without having committed to that sample size upfront. In fact, the power eventually reaches 100%, although we'd need an infinite number of participants (and an infinite amount of coffee) to do so.
 
 ## Is it safe?
 
-We have shown how the anytime-valid test behaves when the effect we're looking for is *real*: the simulations underlying the power-over-time curve were performed at $H_1$ where $p=0.7$. However, what if the effect simply does not exist? In that case, we want to limit the probability that we accidentally reject $H_0$ while it is in fact *true*. We briefly discussed this Type-I error control in [the scenario](#the-scenario) and the anytime-valid framework promises that it provides such guarantees. It is straightforward to verify this promise by simulating trajectories under $H_0$ (where $p=0.5$) and generating the corresponding power-over-time curve (again for significance level $\alpha = 0.05$).
+We have shown how the anytime-valid test behaves when the effect we're looking for is *real*: the simulations underlying the power-over-time curve were performed at $H_1$ where $p=0.7$. However, what if the effect simply does not exist? In that case, we want to limit the probability that we accidentally reject $H_0$ while it is in fact *true*. We briefly discussed this Type-I error control in [the scenario](#the-scenario), and the anytime-valid framework promises that it provides such guarantees. It is straightforward to verify this promise by simulating trajectories under $H_0$ (where $p=0.5$) and generating the corresponding power-over-time curve (again for significance level $\alpha = 0.05$).
 
-{% include figure.html path="assets/img/2026-07-02-safe-testing-part-1/fig4_type1_safety.png" class="img-fluid rounded z-depth-1" zoomable=true %}
-<div class="caption">Under no preference, the false-alarm rate stays under 5%, however long you keep watching.</div>
+{% include figure.html path="assets/img/2026-07-02-safe-testing-part-1/fig4_type1_safety.png" class="img-fluid rounded z-depth-1" zoomable=true caption="Under no preference, the false-alarm rate stays under 5%, however long you keep watching." %}
 
 Some of the simulated trajectories indeed cross the significance threshold, but in the long run this fraction does not exceed the pre-specified significance level. That is precisely the anytime-validity that we want our test to satisfy: Type-I error control under continuous monitoring of the data.
 
@@ -135,25 +128,18 @@ Some of the simulated trajectories indeed cross the significance threshold, but 
 
 So far we have seen that the AV test can detect a real preference with a time-dependent power, and that its false-alarm rate stays controlled if there is no preference at all. The whole point is that we do not know *a priori* whether the preference exists or not (in reality, $p$ need not be exactly $0.5$ or $0.7$ either): that's why we do our experiment. This is also where the interpretation of $E$ as a measure of evidence becomes useful. If $E$ drops below 1 at some point, the data so far favor $H_0$ and we'd have little reason to continue. On the other hand, if $E$ is larger than 1 but still below the significance threshold, this indicates that $H_1$ explains our data better and we may want to add a few more observations to our list.
 
-Recall the borderline situation from [the traditional approach](#the-traditional-approach), where we were just one premium pick short of significance. This could have motivated us to start a new experiment, but we wouldn't have been able to reuse the results from the original 37 participants since this would violate the test's error guarantees. The anytime-valid test carries no such restriction and the e-value quantifies the running evidence of all participants tested so far. Continuing the experiment therefore means picking up where we left off. We are also never forced to commit to a fixed sample size. Instead, we can use the running evidence to make an informed choice about whether or not — and for how long — to continue the experiment. A more detailed discussion on such continuation rules is left for a potential future post.
+Recall the borderline situation from [the traditional approach](#the-traditional-approach), where we were just one premium pick short of significance. This could have motivated us to start a new experiment, but we wouldn't have been able to reuse the results from the original 37 participants since this would violate the test's error guarantees. The anytime-valid test carries no such restriction, and the e-value quantifies the running evidence of all participants tested so far. Continuing the experiment therefore means picking up where we left off. We are also never forced to commit to a fixed sample size. Instead, we can use the running evidence to make an informed choice about whether or not — and for how long — to continue the experiment. A more detailed discussion on such continuation rules is left for a potential future post.
 
 ## How the test design changes
 
-<!-- PROPOSED OUTLINE — draft only, not yet reviewed or edited. -->
-
-We've walked through one complete e-value analysis, from setup to decision. Let's step back and summarize what actually changed compared to the classical approach.
+Now that we've gone through the full e-value analysis of our coffee tasting experiment, let's zoom out and summarize the differences between the anytime-valid test and the classical approach.
 
 | classical fixed-sample | e-value |
 | --- | --- |
 | fix $N$, look once, accept/reject | monitor, stop when convinced, report graded evidence |
-| the effect-size guess hard-commits your $N$ | your bet only affects *efficiency*, never validity |
-| peeking is forbidden | any stopping rule is fine |
-| one study, one verdict | evidence accumulates and *combines* |
+| peeking is forbidden | peek at any time |
+| one study, one verdict | evidence accumulates and can be combined |
 
-Each row traces back to something we've seen. Fixing $N$ and looking once becomes continuous monitoring with a graded verdict. A wrong guess about the effect size no longer risks an underpowered study, since the bet only changes how fast you get there, not whether the test is valid. Peeking, which would invalidate a classical test, is simply built into how the anytime-valid test works. And instead of a single verdict from a single study, evidence keeps accumulating, which opens the door to combining results across studies entirely.
+Each row traces back to something we've seen. Instead of fixing the sample size upfront, we monitor data continuously and let the evidence build up. Peeking is forbidden in the classical framework, but in the AV context we update the e-value each time a new participant shows up and check whether $E$ has crossed the threshold. The fixed-sample design gives a single yes/no verdict, whereas the e-value approach allows us to grow the body of evidence. We can even combine evidence from multiple independent studies, simply by multiplying all their e-values together. Two independent taste tests, or ten, can be combined into one valid verdict without any extra machinery.
 
-One intuitive way to picture the e-value is as a bet. Start with \$1. Each premium pick multiplies your stake by 1.4, each budget pick by 0.6. If there truly is no preference, this bet is fair: your expected stake never grows. So turning \$1 into \$20 is real evidence the bet paid off, and it's also where the name "safe testing" comes from: you can't reliably get rich betting against a true null.
-
-Because e-values are built to multiply, combining evidence from separate studies is as simple as multiplying their e-values together. Two independent taste tests, or ten, can be combined into one valid verdict without any extra machinery.
-
-Throughout, we bet exactly right: our assumed effect, $p=0.7$, matched the truth. What happens when it doesn't? A poorly chosen bet can make the test far less efficient, or in the worst case unable to ever detect a real effect at all. That's where we'll pick up next time.
+This concludes our basic description of the anytime-valid testing framework, applied to a simple example scenario. There are two separate topics I'd like to address in future posts. One is the use of different stopping rules for deciding when to continue or wrap up the experiment, as already hinted at in the previous section. The other is something we largely glossed over so far: throughout the analysis we have pretended that our guess for the effect size under $H_1$ was exactly correct. In practice, this does not occur, and we will always have to deal with a discrepancy between the *expected* and the *real* effect size. In another future post I'd like to discuss in more detail how the e-value analysis behaves under this "misspecification" of $H_1$.
