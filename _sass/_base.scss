@@ -521,6 +521,16 @@ footer.sticky-bottom {
   }
 }
 
+// MathJax injects its own stylesheet at runtime, so its default colors
+// don't track the --global-text-color dark-mode variable; force it here.
+mjx-container {
+  color: var(--global-text-color) !important;
+
+  * {
+    color: inherit !important;
+  }
+}
+
 .post-title {
   mjx-container[jax="CHTML"][display="true"] {
     display: unset;

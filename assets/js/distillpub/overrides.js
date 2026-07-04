@@ -1,4 +1,4 @@
-$(document).ready(function() {
+window.addEventListener("load", function() {
     // Override styles of the footnotes.
     document.querySelectorAll("d-footnote").forEach(function(footnote) {
         footnote.shadowRoot.querySelector("sup > span")
@@ -7,6 +7,11 @@ $(document).ready(function() {
             .insertRule(".panel {background-color: var(--global-bg-color) !important;}");
         footnote.shadowRoot.querySelector("d-hover-box").shadowRoot.querySelector("style").sheet
             .insertRule(".panel {border-color: var(--global-divider-color) !important;}");
+    });
+    // Override styles of the math.
+    document.querySelectorAll("d-math").forEach(function(math) {
+        math.shadowRoot.querySelector("style").sheet
+            .insertRule("span.katex {color: var(--global-text-color) !important;}");
     });
     // Override styles of the citations.
     document.querySelectorAll("d-cite").forEach(function(cite) {
