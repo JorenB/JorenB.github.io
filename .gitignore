@@ -11,3 +11,7 @@ Gemfile.lock
 vendor
 
 *.swp
+
+# local preview only (node-specific paths)
+_config_local.yml
+serve-local.sh

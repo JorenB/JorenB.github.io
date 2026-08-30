@@ -2,10 +2,10 @@
 layout: page
 title: projects
 permalink: /projects/
-description: projects desc
-nav: false
-sitemap: false
-nav_order: 2
+description: Research projects and writeups.
+nav: true
+sitemap: true
+nav_order: 1
 display_categories: [work, fun]
 horizontal: false
 ---

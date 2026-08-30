@@ -144,6 +144,9 @@ collections:
   projects:
     output: true
     permalink: /projects/:path/
+  fomo_shift:
+    output: true
+    permalink: /projects/fomo-shift/:path/
 
 announcements:
   enabled: true
