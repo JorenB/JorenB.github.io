@@ -20,3 +20,6 @@
     cronitor('config', { clientKey: '{{site.cronitor_analytics}}' });
   </script>
 {%- endif -%}
+{%- if site.enable_goatcounter -%}
+<script data-goatcounter="https://jorenb.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+{%- endif -%}
