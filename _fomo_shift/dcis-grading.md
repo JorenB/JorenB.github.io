@@ -37,13 +37,23 @@ Global tile-MMD recovered about half of the grade drop, lifting Sloane from abou
 
 Unfortunately, it was also specific to grade. ER recovery came out at −0.007 and HER2 at +0.015, both indistinguishable from zero. Whatever the adapter was doing for grade, it did not transfer to the other endpoints on the same slides.
 
-<!-- Figure (todo): the grade recovery headline, AUC on Sloane before and after adaptation, against the internal Dutch cohort reference (entry_19 grade_recovery_headline). -->
+<div class="row justify-content-center">
+    <div class="col-12">
+        {% include figure.html path="assets/img/fomo-shift/dcis-grade-recovery.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+    </div>
+</div>
+<div class="caption">Grade recovery on the Sloane deployment cohort. Left: slide-level grade AUC as the adapter trains, averaged over five seeds. Without adaptation the classifier scores 0.65 on Sloane (red). Adaptation lifts it to a plateau near 0.715 (blue), against the within-cohort reference ceiling of 0.767 (green). About half the cross-cohort drop is recovered, and the curve holds flat rather than turning back down. Right: paired-bootstrap recovery (adapted minus unadapted AUC) for the three endpoints on the same slides. Grade is +0.064 and positive on every draw, whereas ER and HER2 sit at zero. The recovery is robust and meaningful, but clearly specific to grade.</div>
 
 ## the ceiling
 
 About half of the grade drop, roughly +0.06 AUC, was where the recovery stopped. I tried to improve beyond it in the obvious directions. The default adapter is a full linear map. Lower-capacity LoRA versions, bandwidth tuning, and cluster-conditional matching all left the number where it was. The LoRA sweep in particular showed that capacity was not the limit: low rank underfits, and higher ranks just match the full linear map. The recovery plateaued near half of the grade drop every time.
 
-<!-- Figure (todo): the ceiling, recovery staying near half as capacity, bandwidth, and cluster-conditioning are varied (entry_19 grade_ceiling_levers). -->
+<div class="row justify-content-center">
+    <div class="col-12">
+        {% include figure.html path="assets/img/fomo-shift/dcis-grade-ceiling.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+    </div>
+</div>
+<div class="caption">Half the drop is all we can repair :-(. Grade recovery as three settings are varied, each holding the others at their default. Left: adapter capacity, from a rank-1 LoRA up to the full linear map (SLP). Recovery rises with capacity and saturates around rank 64, so the full map is not capacity-limited. Middle: the MMD kernel bandwidth as a multiple of the median-distance heuristic. The default scale is already near the best, variation seems to be mostly noise. Right: reference-anchored cluster-conditional matching (k clusters) against global matching (k=1). Conditioning adds nothing. Every setting choice plateaus near +0.06 AUC.</div>
 
 ## the wall
 

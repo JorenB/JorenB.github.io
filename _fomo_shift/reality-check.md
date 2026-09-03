@@ -44,7 +44,19 @@ I could not pin the failure on a single cause, so what follows is merely suggest
 
 Put together, the earlier success leaned on a favorable setup, and in a realistic one the little shift that remained was mostly not the kind the adapter could remove.
 
-<!-- Figure (todo): the cluster diagnostic across the 20 center pairs, biology versus center (entry_17 nmi_center_vs_class); and the per-endpoint drop, showing how small and compositional it is (entry_18 drop_forest_knn). -->
+<div class="row justify-content-center">
+    <div class="col-12">
+        {% include figure.html path="assets/img/fomo-shift/uni2-clusters-biology-vs-center.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+    </div>
+</div>
+<div class="caption">UNI-2 tile embeddings from one representative center pair (ILSBio and MSKCC), pooled and projected with PCA (top) and UMAP (bottom), equal numbers per center drawn in a single shuffled pass. Left: colored by acquisition center. Right: colored by tissue class. In PCA the two centers are thoroughly interleaved while the classes separate cleanly. UMAP resolves finer groups, but every region carries both centers and class stays the dominant axis. The embedding organizes mainly by biology, not by center, so there is little center-wide direction for the adapter to remove. This figure shows just one center pair, but a similar pattern held for all 20.</div>
+
+<div class="row justify-content-center">
+    <div class="col-12">
+        {% include figure.html path="assets/img/fomo-shift/cross-center-drop-forest-logreg.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+    </div>
+</div>
+<div class="caption">Cross-center AUC drop for each of the 20 center pairs, tile-level logistic regression on UNI-2 features. Each drop is the within-center reference AUC (cross-validated) minus the deployment AUC, with a slide-level bootstrap confidence interval. Red marks a robust drop, where the deployment interval lies entirely below the reference. About half the pairs show one, but no drop exceeds 0.10 AUC, and the largest involve the small IGC center with the widest intervals. The shift that remains is small, so there is little for adaptation to recover.</div>
 
 ## approaches that did not help
 

@@ -148,6 +148,17 @@ blockquote {
   text-align: center;
 }
 
+// FOMO-Shift figure captions: left-aligned and visually set apart from body text.
+.fomo-shift-page .caption {
+  text-align: left;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--global-text-color-light);
+  border-left: 3px solid var(--global-divider-color);
+  padding-left: 0.9rem;
+  margin-top: 0.5rem;
+}
+
 // Card
 
 .card {

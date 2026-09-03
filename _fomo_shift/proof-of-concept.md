@@ -38,6 +38,13 @@ In the third stage, we reach the first real acquisition shift. We use TCGA-2k, a
 
 Joeri found that it does indeed. Of the 20 center pairs, 18 improved after adaptation. This was what we had been hoping to see all along: a label-free adapter, trained only to match embedding distributions, recovering real cross-center performance on real tissue! At this stage, I got very optimistic about the broad applicability of the approach. I felt like we would now just proceed to implement FOMO-Shift in various contexts (integrating ABMIL aggregation, moving to domains outside pathology), show that it works, write up the results and send in to some nice journal.
 
+<div class="row justify-content-center">
+    <div class="col-12">
+        {% include figure.html path="assets/img/fomo-shift/tcga2k-phikon-before-after.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+    </div>
+</div>
+<div class="caption">TCGA-2k, breast-versus-colon classification on Phikon embeddings. Each point is one of the 20 center pairs: the horizontal axis is the downstream accuracy on the shifted center before adaptation, the vertical axis is the accuracy after the label-free adapter is applied. Points above the diagonal improved. 18 of the 20 pairs did, for a mean gain of 0.14. Figure by Joeri (thesis, section 4.4.1).</div>
+
 However, that was the optimistic road. There was still quite a bit left to do before we got there.
 
 ## choosing the bandwidth
@@ -60,8 +67,6 @@ The TCGA-2k result holds up. However, it came out of particular conditions and t
 Phikon exposes a large shift. It is an older, lightweight pathology model, convenient for these early experiments. Its cross-center gap is wide, which leaves a lot for the adapter to recover. The [PathoROB benchmark](https://www.nature.com/articles/s41467-026-73923-2) puts numbers on this: pathology foundation models differ a lot in how much medical-center signal dominates the biology, with UNI-2 among the most center-robust and older, lighter models among the least. The tiles are curated, roughly 200 clean tiles per center, so the two embedding clouds are tidier than a full slide would give. Some center pairs also have mismatched class proportions. Part of what the adapter faces is then a difference in what the centers contain, not only in how they were scanned.
 
 None of this undoes the TCGA-2k result. It does mean the result came from favorable conditions: a large recoverable shift, clean data, and a comparatively easy task. [Section 4](/projects/fomo-shift/reality-check/) is what happens when we remove those advantages.
-
-<!-- Figure (todo): TCGA-2k before/after, the downstream score on the shifted center with and without adaptation across the center pairs; or a toy-data panel showing an alignment. TBD. -->
 
 ---
 
