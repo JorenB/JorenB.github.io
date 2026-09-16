@@ -15,6 +15,8 @@ This is domain shift, and it is one of the standing problems in applied machine 
 
 FOMO-Shift began as an idea: that a small correction in embedding space could undo domain shift while the expensive parts of the model stay frozen. We applied to NWO for a grant to test it, and it was awarded (project [NGF1609242045](https://www.nwo.nl/projecten/ngf1609242045)). The grant also funded a six-month [MSc thesis by Joeri](https://scripties.uba.uva.nl/search?id=record_57103), whose work became the early phases of this project. The project has since formally closed. In this report we write up what we tried, what worked, what did not, and where things stand now.
 
+A permanent, citable version of this report is archived on Zenodo: [10.5281/zenodo.22706453](https://doi.org/10.5281/zenodo.22706453).
+
 The method builds on foundation models: large networks, pretrained on a lot of data, that turn an input into a general-purpose embedding. FOMO-Shift keeps such a model frozen and does its correction in that embedding space.
 
 ## the idea in three steps
